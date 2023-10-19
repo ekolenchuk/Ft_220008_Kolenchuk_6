@@ -1,5 +1,3 @@
-import sys
-
 print('Введите текст:')
 text = input()
 text_length = len(text)

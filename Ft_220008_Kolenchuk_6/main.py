@@ -1,3 +1,5 @@
+import sys
+
 from tabulate import tabulate
 
 
@@ -21,7 +23,16 @@ def round_sum(list):
     return sum
 
 
-count = int(input('Введите количество критериев:  '))
+try:
+    count = int(input('Введите количество критериев:  '))
+except ValueError:
+    print("Oops! Неверный ввод!")
+    sys.exit()
+else:
+    if count == 0 or count < 0:
+        print("Oops! Неверный ввод! Нужно положительное целое число")
+        sys.exit()
+
 criteria = []
 for i in range(count):
     criteria.append(input(f'Название критерия {i + 1}:  '))
@@ -38,7 +49,15 @@ j = 0
 sum_line = [0.0] * count
 while i != count:
     while j != count:
-        arr[i][j] = float(input(f'Относительная важность между критериями {criteria[i]} и {criteria[j]}:  '))
+        try:
+            arr[i][j] = float(input(f'Относительная важность между критериями {criteria[i]} и {criteria[j]}:  '))
+        except ValueError:
+            print("Oops! Неверный ввод! Нужно положительное число в виде 0.00")
+            continue
+        if arr[i][j] < 0 or arr[i][j] == 0:
+            print("Oops! Неверный ввод! Нужно положительное число в виде 0.00")
+            continue
+
         sum_line[i] += arr[i][j]
         j += 1
     i += 1
